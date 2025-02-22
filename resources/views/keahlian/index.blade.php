@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    {{ ucwords(str_replace('_', ' ', 'departemen')) }}
+    {{ ucwords(str_replace('_', ' ', 'keahlian')) }}
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
                         <h5 class="text-white op-7 mb-2">Manajemen @yield('title')</h5>
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
-                        <a href="{{ route('departemen.create') }}" class="btn btn-secondary btn-round">Tambah @yield('title')</a>
+                        <a href="{{ route('keahlian.create') }}" class="btn btn-secondary btn-round">Tambah @yield('title')</a>
                     </div>
                 </div>
             </div>
@@ -37,18 +37,20 @@
                                     <thead>
                                         <tr>
                                             <th>{{ strtoupper(str_replace('_', ' ', 'id')) }}</th>
+                                            <th>{{ ucwords(str_replace('_', ' ', 'kode')) }}</th>
                                             <th>{{ ucwords(str_replace('_', ' ', 'nama')) }}</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($departemens as $departemen)
+                                        @forelse ($keahlians as $keahlian)
                                             <tr>
-                                                <td>{{ $departemen->id }}</td>
-                                                <td>{{ $departemen->nama }}</td>
+                                                <td>{{ $keahlian->id }}</td>
+                                                <td>{{ $keahlian->kode }}</td>
+                                                <td>{{ $keahlian->nama }}</td>
                                                 <td>
-                                                    <a href="{{ route('departemen.edit', $departemen->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                    <form action="{{ route('departemen.destroy', $departemen->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                                    <a href="{{ route('keahlian.edit', $keahlian->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                    <form action="{{ route('keahlian.destroy', $keahlian->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

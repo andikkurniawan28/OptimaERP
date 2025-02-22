@@ -12,7 +12,8 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        //
+        $jurusans = Jurusan::all();
+        return view('jurusan.index', compact('jurusans'));
     }
 
     /**
@@ -20,7 +21,7 @@ class JurusanController extends Controller
      */
     public function create()
     {
-        //
+        return view('jurusan.create');
     }
 
     /**
@@ -28,7 +29,18 @@ class JurusanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        Jurusan::create([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'master' => $request->master,
+        ]);
+
+        return redirect()->route('jurusan.index')->with('success', ucwords(str_replace('_', ' ', 'jurusan')).' berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +48,7 @@ class JurusanController extends Controller
      */
     public function show(Jurusan $jurusan)
     {
-        //
+        return view('jurusan.show', compact('jurusan'));
     }
 
     /**
@@ -44,7 +56,7 @@ class JurusanController extends Controller
      */
     public function edit(Jurusan $jurusan)
     {
-        //
+        return view('jurusan.edit', compact('jurusan'));
     }
 
     /**
@@ -52,7 +64,17 @@ class JurusanController extends Controller
      */
     public function update(Request $request, Jurusan $jurusan)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        $jurusan->update([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->route('jurusan.index')->with('success', ucwords(str_replace('_', ' ', 'jurusan')).' berhasil diperbarui');
     }
 
     /**
@@ -60,6 +82,8 @@ class JurusanController extends Controller
      */
     public function destroy(Jurusan $jurusan)
     {
-        //
+        $jurusan->delete();
+
+        return redirect()->route('jurusan.index')->with('success', ucwords(str_replace('_', ' ', 'jurusan')).' berhasil dihapus');
     }
 }

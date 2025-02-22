@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    {{ ucwords(str_replace('_', ' ', 'departemen')) }}
+    {{ ucwords(str_replace('_', ' ', 'status_perkawinan')) }}
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
                         <h5 class="text-white op-7 mb-2">Manajemen @yield('title')</h5>
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
-                        <a href="{{ route('departemen.create') }}" class="btn btn-secondary btn-round">Tambah @yield('title')</a>
+                        <a href="{{ route('status_perkawinan.create') }}" class="btn btn-secondary btn-round">Tambah @yield('title')</a>
                     </div>
                 </div>
             </div>
@@ -42,13 +42,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($departemens as $departemen)
+                                        @forelse ($status_perkawinans as $status_perkawinan)
                                             <tr>
-                                                <td>{{ $departemen->id }}</td>
-                                                <td>{{ $departemen->nama }}</td>
+                                                <td>{{ $status_perkawinan->id }}</td>
+                                                <td>{{ $status_perkawinan->nama }}</td>
                                                 <td>
-                                                    <a href="{{ route('departemen.edit', $departemen->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                    <form action="{{ route('departemen.destroy', $departemen->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                                    <a href="{{ route('status_perkawinan.edit', $status_perkawinan->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                    <form action="{{ route('status_perkawinan.destroy', $status_perkawinan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

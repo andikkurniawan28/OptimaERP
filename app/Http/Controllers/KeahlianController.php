@@ -12,7 +12,8 @@ class KeahlianController extends Controller
      */
     public function index()
     {
-        //
+        $keahlians = Keahlian::all();
+        return view('keahlian.index', compact('keahlians'));
     }
 
     /**
@@ -20,7 +21,7 @@ class KeahlianController extends Controller
      */
     public function create()
     {
-        //
+        return view('keahlian.create');
     }
 
     /**
@@ -28,7 +29,18 @@ class KeahlianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        Keahlian::create([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'master' => $request->master,
+        ]);
+
+        return redirect()->route('keahlian.index')->with('success', ucwords(str_replace('_', ' ', 'keahlian')).' berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +48,7 @@ class KeahlianController extends Controller
      */
     public function show(Keahlian $keahlian)
     {
-        //
+        return view('keahlian.show', compact('keahlian'));
     }
 
     /**
@@ -44,7 +56,7 @@ class KeahlianController extends Controller
      */
     public function edit(Keahlian $keahlian)
     {
-        //
+        return view('keahlian.edit', compact('keahlian'));
     }
 
     /**
@@ -52,7 +64,17 @@ class KeahlianController extends Controller
      */
     public function update(Request $request, Keahlian $keahlian)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        $keahlian->update([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->route('keahlian.index')->with('success', ucwords(str_replace('_', ' ', 'keahlian')).' berhasil diperbarui');
     }
 
     /**
@@ -60,6 +82,8 @@ class KeahlianController extends Controller
      */
     public function destroy(Keahlian $keahlian)
     {
-        //
+        $keahlian->delete();
+
+        return redirect()->route('keahlian.index')->with('success', ucwords(str_replace('_', ' ', 'keahlian')).' berhasil dihapus');
     }
 }

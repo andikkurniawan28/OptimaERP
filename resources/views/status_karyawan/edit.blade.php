@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    {{ ucwords(str_replace('_', ' ', 'departemen')) }}
+    {{ ucwords(str_replace('_', ' ', 'status_karyawan')) }}
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
                         <h5 class="text-white op-7 mb-2">Manajemen @yield('title')</h5>
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
-                        <a href="{{ route('departemen.index') }}" class="btn btn-secondary btn-round">Kembali</a>
+                        <a href="{{ route('status_karyawan.index') }}" class="btn btn-secondary btn-round">Kembali</a>
                     </div>
                 </div>
             </div>
@@ -32,12 +32,12 @@
                             <h4 class="card-title">Edit @yield('title')</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('departemen.update', $departemen->id) }}" method="POST">
+                            <form action="{{ route('status_karyawan.update', $status_karyawan->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="nama">{{ ucwords(str_replace('_', ' ', 'nama')) }}</label>
-                                    <input type="text" name="nama" id="nama" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama', $departemen->nama) }}" required autofocus>
+                                    <input type="text" name="nama" id="nama" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama', $status_karyawan->nama) }}" required autofocus>
                                     @error('nama')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

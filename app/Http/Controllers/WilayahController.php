@@ -12,7 +12,8 @@ class WilayahController extends Controller
      */
     public function index()
     {
-        //
+        $wilayahs = Wilayah::all();
+        return view('wilayah.index', compact('wilayahs'));
     }
 
     /**
@@ -20,7 +21,7 @@ class WilayahController extends Controller
      */
     public function create()
     {
-        //
+        return view('wilayah.create');
     }
 
     /**
@@ -28,7 +29,18 @@ class WilayahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        Wilayah::create([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'master' => $request->master,
+        ]);
+
+        return redirect()->route('wilayah.index')->with('success', ucwords(str_replace('_', ' ', 'wilayah')).' berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +48,7 @@ class WilayahController extends Controller
      */
     public function show(Wilayah $wilayah)
     {
-        //
+        return view('wilayah.show', compact('wilayah'));
     }
 
     /**
@@ -44,7 +56,7 @@ class WilayahController extends Controller
      */
     public function edit(Wilayah $wilayah)
     {
-        //
+        return view('wilayah.edit', compact('wilayah'));
     }
 
     /**
@@ -52,7 +64,17 @@ class WilayahController extends Controller
      */
     public function update(Request $request, Wilayah $wilayah)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        $wilayah->update([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->route('wilayah.index')->with('success', ucwords(str_replace('_', ' ', 'wilayah')).' berhasil diperbarui');
     }
 
     /**
@@ -60,6 +82,8 @@ class WilayahController extends Controller
      */
     public function destroy(Wilayah $wilayah)
     {
-        //
+        $wilayah->delete();
+
+        return redirect()->route('wilayah.index')->with('success', ucwords(str_replace('_', ' ', 'wilayah')).' berhasil dihapus');
     }
 }

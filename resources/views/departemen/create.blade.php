@@ -1,6 +1,6 @@
 @extends('template.master')
 
-@section('kontak-aktif')
+@section('personalia-aktif')
     {{ 'active' }}
 @endsection
 

@@ -12,7 +12,8 @@ class BankController extends Controller
      */
     public function index()
     {
-        //
+        $banks = Bank::all();
+        return view('bank.index', compact('banks'));
     }
 
     /**
@@ -20,7 +21,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        //
+        return view('bank.create');
     }
 
     /**
@@ -28,7 +29,18 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        Bank::create([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'master' => $request->master,
+        ]);
+
+        return redirect()->route('bank.index')->with('success', ucwords(str_replace('_', ' ', 'bank')).' berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +48,7 @@ class BankController extends Controller
      */
     public function show(Bank $bank)
     {
-        //
+        return view('bank.show', compact('bank'));
     }
 
     /**
@@ -44,7 +56,7 @@ class BankController extends Controller
      */
     public function edit(Bank $bank)
     {
-        //
+        return view('bank.edit', compact('bank'));
     }
 
     /**
@@ -52,7 +64,17 @@ class BankController extends Controller
      */
     public function update(Request $request, Bank $bank)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        $bank->update([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->route('bank.index')->with('success', ucwords(str_replace('_', ' ', 'bank')).' berhasil diperbarui');
     }
 
     /**
@@ -60,6 +82,8 @@ class BankController extends Controller
      */
     public function destroy(Bank $bank)
     {
-        //
+        $bank->delete();
+
+        return redirect()->route('bank.index')->with('success', ucwords(str_replace('_', ' ', 'bank')).' berhasil dihapus');
     }
 }
