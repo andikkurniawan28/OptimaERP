@@ -70,6 +70,16 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ route('seksi.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'seksi')) }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('jabatan.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'jabatan')) }}</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('status_karyawan.index') }}">
                                     <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'status_karyawan')) }}</span>
                                 </a>

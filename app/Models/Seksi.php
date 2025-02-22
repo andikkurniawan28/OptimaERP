@@ -10,4 +10,8 @@ class Seksi extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function departemen(){
+        return $this->belongsTo(Departemen::class);
+    }
 }

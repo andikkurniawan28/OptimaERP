@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seksi;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        //
+        $jabatans = Jabatan::with('seksi')->get(); // Load relasi seksi
+        return view('jabatan.index', compact('jabatans'));
     }
 
     /**
@@ -20,7 +22,8 @@ class JabatanController extends Controller
      */
     public function create()
     {
-        //
+        $seksis = Seksi::all();
+        return view('jabatan.create', compact('seksis'));
     }
 
     /**
@@ -28,7 +31,17 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'seksi_id' => 'required|exists:seksis,id',
+        ]);
+
+        Jabatan::create([
+            'nama' => $request->nama,
+            'seksi_id' => $request->seksi_id, // Simpan seksi_id
+        ]);
+
+        return redirect()->route('jabatan.index')->with('success', ucwords(str_replace('_', ' ', 'jabatan')).' berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +49,7 @@ class JabatanController extends Controller
      */
     public function show(Jabatan $jabatan)
     {
-        //
+        return view('jabatan.show', compact('jabatan'));
     }
 
     /**
@@ -44,7 +57,8 @@ class JabatanController extends Controller
      */
     public function edit(Jabatan $jabatan)
     {
-        //
+        $seksis = Seksi::all();
+        return view('jabatan.edit', compact('jabatan', 'seksis'));
     }
 
     /**
@@ -52,7 +66,17 @@ class JabatanController extends Controller
      */
     public function update(Request $request, Jabatan $jabatan)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'seksi_id' => 'required|exists:seksis,id',
+        ]);
+
+        $jabatan->update([
+            'nama' => $request->nama,
+            'seksi_id' => $request->seksi_id,
+        ]);
+
+        return redirect()->route('jabatan.index')->with('success', ucwords(str_replace('_', ' ', 'jabatan')).' berhasil diperbarui');
     }
 
     /**
@@ -60,6 +84,8 @@ class JabatanController extends Controller
      */
     public function destroy(Jabatan $jabatan)
     {
-        //
+        $jabatan->delete();
+
+        return redirect()->route('jabatan.index')->with('success', ucwords(str_replace('_', ' ', 'jabatan')).' berhasil dihapus');
     }
 }
