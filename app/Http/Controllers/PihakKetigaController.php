@@ -6,16 +6,25 @@ use App\Models\Organisasi;
 use App\Models\Kontak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 
 class PihakKetigaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pihak_ketigas = Kontak::with('organisasi')->where('jenis_kontak_id', 2)->get(); // Load relasi organisasi
-        return view('pihak_ketiga.index', compact('pihak_ketigas'));
+        if ($request->ajax()) {
+            $data = Kontak::with('organisasi')->where('jenis_kontak_id', 2)->latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->editColumn('organisasi_id', function($row) {
+                    return $row->organisasi ? $row->organisasi->nama : '-';
+                })
+                ->make(true);
+        }
+        return view('pihak_ketiga.index');
     }
 
     /**

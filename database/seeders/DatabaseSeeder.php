@@ -17,6 +17,7 @@ use App\Models\StatusKaryawan;
 use App\Models\JenisOrganisasi;
 use Illuminate\Database\Seeder;
 use App\Models\JenisPihakKetiga;
+use App\Models\Shift;
 use App\Models\Sekolah;
 use App\Models\StatusPerkawinan;
 use App\Models\PendidikanTerakhir;
@@ -470,6 +471,37 @@ class DatabaseSeeder extends Seeder
                 'email' => 'makmur_jaya@example.com',
                 'alamat' => 'Jl. Pahlawan No. 15, Surabaya',
                 'npwp' => null,
+            ],
+        ]);
+
+        Shift::insert([
+            [
+                'kode' => 'H',
+                'nama' => 'Harian',
+                'jam_masuk' => '08:00',
+                'jam_pulang' => '16:00',
+                'faktor_pengali_gaji' => 1.0,
+            ],
+            [
+                'kode' => 'P',
+                'nama' => 'Shift Pagi',
+                'jam_masuk' => '06:00',
+                'jam_pulang' => '14:00',
+                'faktor_pengali_gaji' => 1.0,
+            ],
+            [
+                'kode' => 'S',
+                'nama' => 'Shift Siang',
+                'jam_masuk' => '14:00',
+                'jam_pulang' => '22:00',
+                'faktor_pengali_gaji' => 1.2,
+            ],
+            [
+                'kode' => 'M',
+                'nama' => 'Shift Malam',
+                'jam_masuk' => '22:00',
+                'jam_pulang' => '06:00',
+                'faktor_pengali_gaji' => 1.5,
             ],
         ]);
 

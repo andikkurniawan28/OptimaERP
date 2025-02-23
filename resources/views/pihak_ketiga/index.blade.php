@@ -33,7 +33,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="basic-datatables" class="table table-bordered">
+                                <table id="pihak_ketiga_table" class="table table-bordered" width="100%">
                                     <thead>
                                         <tr>
                                             <th>{{ strtoupper(str_replace('_', ' ', 'id')) }}</th>
@@ -44,27 +44,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($pihak_ketigas as $pihak_ketiga)
-                                            <tr>
-                                                <td>{{ $pihak_ketiga->id }}</td>
-                                                <td>{{ $pihak_ketiga->nama_panggilan }}</td>
-                                                <td>{{ $pihak_ketiga->organisasi->nama }}</td>
-                                                <td>{{ $pihak_ketiga->nomor_handphone }}</td>
-                                                <td>
-                                                    <a href="{{ route('pihak_ketiga.show', $pihak_ketiga->id) }}" class="btn btn-info btn-sm">Detail</a>
-                                                    <a href="{{ route('pihak_ketiga.edit', $pihak_ketiga->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                    <form action="{{ route('pihak_ketiga.destroy', $pihak_ketiga->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="3" class="text-center">Tidak ada data</td>
-                                            </tr>
-                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -77,10 +56,90 @@
 @endsection
 
 @section('script')
-<script>
-    $(document).ready(function() {
-        $('#basic-datatables').DataTable({
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#pihak_ketiga_table').DataTable({
+                layout: {
+                    bottomStart: {
+                        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5'],
+                    },
+                },
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('pihak_ketiga.index') }}",
+                order: [
+                    [0, 'desc']
+                ],
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nama_panggilan',
+                        name: 'nama_panggilan'
+                    },
+                    {
+                        data: 'organisasi_id',
+                        name: 'organisasi.name'
+                    },
+                    {
+                        data: 'nomor_handphone',
+                        name: 'nomor_handphone'
+                    },
+                    {
+                        data: null,
+                        name: 'actions',
+                        render: function(data, type, row) {
+                            return `
+                                <div class="btn-group" role="group" aria-label="manage">
+                                    <a href="{{ url('/kontak/pihak_ketiga') }}/${row.id}" class="btn btn-info btn-sm" target="_blank">Detail</a>
+                                    <a href="{{ url('/kontak/pihak_ketiga') }}/${row.id}/edit" class="btn btn-warning btn-sm" target="_blank">Edit</a>
+                                    <button type="button" class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" data-name="${row.id}">Hapus</button>
+                                </div>
+                            `;
+                        }
+                    }
+                ]
+            });
+
+            // Event delegation for delete buttons
+            $(document).on('click', '.delete-btn', function(event) {
+                event.preventDefault();
+                const pihak_ketigaId = $(this).data('id');
+                const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You won\'t be able to revert this!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const form = $('<form>', {
+                            method: 'POST',
+                            action: `{{ url('/kontak/pihak_ketiga') }}/${pihak_ketigaId}`
+                        });
+
+                        $('<input>', {
+                            type: 'hidden',
+                            name: '_method',
+                            value: 'DELETE'
+                        }).appendTo(form);
+
+                        $('<input>', {
+                            type: 'hidden',
+                            name: '_token',
+                            value: csrfToken
+                        }).appendTo(form);
+
+                        form.appendTo('body').submit();
+                    }
+                });
+            });
         });
-    });
-</script>
+    </script>
 @endsection

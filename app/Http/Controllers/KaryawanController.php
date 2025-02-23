@@ -13,17 +13,26 @@ use App\Models\Sekolah;
 use App\Models\Jurusan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 
 class KaryawanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $karyawans = Kontak::where('jenis_kontak_id', 1) // Jenis kontak untuk karyawan
-            ->get();
-        return view('karyawan.index', compact('karyawans'));
+        if ($request->ajax()) {
+            $karyawans = Kontak::with('jabatan')->where('jenis_kontak_id', 1)->latest()->get();
+            // $data = Invoice::with('invoice_category', 'warehouse', 'supplier', 'customer')
+            return Datatables::of($karyawans)
+                ->addIndexColumn()
+                ->editColumn('jabatan_id', function($row) {
+                    return $row->jabatan ? $row->jabatan->nama : '-'; // Replace invoice_category_id with user name
+                })
+                ->make(true);
+        }
+        return view('karyawan.index');
     }
 
     /**

@@ -129,6 +129,11 @@
                                     <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'karyawan')) }}</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('shift.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'shift')) }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

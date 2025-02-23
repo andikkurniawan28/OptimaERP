@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Atlantis Lite - Bootstrap 4 Admin Dashboard</title>
+	<title>OptimaERP</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="/atlantis/assets/img/icon.ico" type="image/x-icon"/>
 
@@ -38,6 +38,10 @@
         integrity="sha512-CbQfNVBSMAYmnzP3IC+mZZmYMP2HUnVkV4+PwuhpiMUmITtSpS7Prr3fNncV1RBOnWxzz4pYQ5EAGG4ck46Oig=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Datatable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.dataTables.css" />
+
 </head>
 <body>
 	<div class="wrapper">
@@ -45,7 +49,7 @@
 			<!-- Logo Header -->
 			<div class="logo-header" data-background-color="blue">
 
-				<a href="index.html" class="logo">
+				<a href="{{ route('home') }}" class="logo">
 					<img src="/atlantis/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,6 +122,7 @@
 		@include('template.sidebar')
 
 		<div class="main-panel">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
             @yield('content')
 			<footer class="footer">
 				<div class="container-fluid">
@@ -264,105 +269,15 @@
     <!-- Bootstrap Select JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0/js/bootstrap-select.min.js"></script>
 
-
-	<!-- Atlantis DEMO methods, don't include it in your project! -->
-	{{-- <script src="/atlantis/assets/js/setting-demo.js"></script>
-	<script src="/atlantis/assets/js/demo.js"></script>
-	<script>
-		Circles.create({
-			id:'circles-1',
-			radius:45,
-			value:60,
-			maxValue:100,
-			width:7,
-			text: 5,
-			colors:['#f1f1f1', '#FF9E27'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		Circles.create({
-			id:'circles-2',
-			radius:45,
-			value:70,
-			maxValue:100,
-			width:7,
-			text: 36,
-			colors:['#f1f1f1', '#2BB930'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		Circles.create({
-			id:'circles-3',
-			radius:45,
-			value:40,
-			maxValue:100,
-			width:7,
-			text: 12,
-			colors:['#f1f1f1', '#F25961'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
-
-		var mytotalIncomeChart = new Chart(totalIncomeChart, {
-			type: 'bar',
-			data: {
-				labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
-				datasets : [{
-					label: "Total Income",
-					backgroundColor: '#ff9e27',
-					borderColor: 'rgb(23, 125, 255)',
-					data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
-				}],
-			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend: {
-					display: false,
-				},
-				scales: {
-					yAxes: [{
-						ticks: {
-							display: false //this will remove only the label
-						},
-						gridLines : {
-							drawBorder: false,
-							display : false
-						}
-					}],
-					xAxes : [ {
-						gridLines : {
-							drawBorder: false,
-							display : false
-						}
-					}]
-				},
-			}
-		});
-
-		$('#lineChart').sparkline([105,103,123,100,95,105,115], {
-			type: 'line',
-			height: '70',
-			width: '100%',
-			lineWidth: '2',
-			lineColor: '#ffa534',
-			fillColor: 'rgba(255, 165, 52, .14)'
-		});
-
-    </script> --}}
+    <!-- Datatable -->
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script> --}}
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
 
     @if (session('success'))
     <script>
