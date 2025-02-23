@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode')->unique();
             $table->foreignId('jenis_kontak_id')->constrained();
-            $table->foreignId('organisasi_id')->constrained();
+            $table->foreignId('organisasi_id')->nullable()->constrained();
             $table->string('nama_lengkap')->unique();
             $table->string('nama_panggilan')->unique();
             $table->string('nomor_handphone')->unique();

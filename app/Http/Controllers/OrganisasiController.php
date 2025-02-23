@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BidangUsaha;
 use App\Models\JenisOrganisasi;
+use App\Models\JenisPihakKetiga;
 use App\Models\Wilayah;
 use App\Models\Organisasi;
 use Illuminate\Http\Request;
@@ -24,11 +25,12 @@ class OrganisasiController extends Controller
      */
     public function create()
     {
+        $jenis_pihak_ketigas = JenisPihakKetiga::all();
         $jenis_organisasis = JenisOrganisasi::all();
         $bidang_usahas = BidangUsaha::all();
         $wilayahs = Wilayah::all();
 
-        return view('organisasi.create', compact('jenis_organisasis', 'bidang_usahas', 'wilayahs'));
+        return view('organisasi.create', compact('jenis_pihak_ketigas', 'jenis_organisasis', 'bidang_usahas', 'wilayahs'));
     }
 
     /**
@@ -39,6 +41,7 @@ class OrganisasiController extends Controller
         $request->validate([
             'kode' => 'required|string|max:50|unique:organisasis,kode',
             'nama' => 'required|string|max:255',
+            'jenis_pihak_ketiga_id' => 'required|exists:jenis_pihak_ketigas,id',
             'jenis_organisasi_id' => 'required|exists:jenis_organisasis,id',
             'bidang_usaha_id' => 'required|exists:bidang_usahas,id',
             'wilayah_id' => 'required|exists:wilayahs,id',
@@ -66,11 +69,12 @@ class OrganisasiController extends Controller
      */
     public function edit(Organisasi $organisasi)
     {
+        $jenis_pihak_ketigas = JenisPihakKetiga::all();
         $jenis_organisasis = JenisOrganisasi::all();
         $bidang_usahas = BidangUsaha::all();
         $wilayahs = Wilayah::all();
 
-        return view('organisasi.edit', compact('organisasi', 'jenis_organisasis', 'bidang_usahas', 'wilayahs'));
+        return view('organisasi.edit', compact('organisasi', 'jenis_pihak_ketigas', 'jenis_organisasis', 'bidang_usahas', 'wilayahs'));
     }
 
     /**
@@ -81,6 +85,7 @@ class OrganisasiController extends Controller
         $request->validate([
             'kode' => 'required|string|max:50|unique:organisasis,kode,' . $organisasi->id,
             'nama' => 'required|string|max:255',
+            'jenis_pihak_ketiga_id' => 'required|exists:jenis_pihak_ketigas,id',
             'jenis_organisasi_id' => 'required|exists:jenis_organisasis,id',
             'bidang_usaha_id' => 'required|exists:bidang_usahas,id',
             'wilayah_id' => 'required|exists:wilayahs,id',

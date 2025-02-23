@@ -44,7 +44,7 @@ class PihakKetigaController extends Controller
 
         Kontak::create([
             'kode' => Str::random(10),
-            'jenis_kontak_id' => 2, // Set default jenis_kontak_id
+            'jenis_kontak_id' => 2,
             'organisasi_id' => $request->organisasi_id,
             'nama_lengkap' => $request->nama_lengkap,
             'nama_panggilan' => $request->nama_panggilan,
@@ -60,33 +60,45 @@ class PihakKetigaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Kontak $kontak)
+    public function show($id)
     {
+        $kontak = Kontak::whereId($id)->get()->last();
         return view('pihak_ketiga.show', compact('kontak'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Kontak $kontak)
+    public function edit($id)
     {
         $organisasis = Organisasi::all();
-        return view('pihak_ketiga.edit', compact('pihak_ketiga', 'organisasis'));
+        $kontak = Kontak::whereId($id)->get()->last();
+        return view('pihak_ketiga.edit', compact('kontak', 'organisasis'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Kontak $kontak)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
             'organisasi_id' => 'required|exists:organisasis,id',
+            'nama_lengkap' => 'required|string|unique:kontaks,nama_lengkap,' . $id,
+            'nama_panggilan' => 'required|string|unique:kontaks,nama_panggilan,' . $id,
+            'nomor_handphone' => 'required|string|unique:kontaks,nomor_handphone,' . $id,
+            'email' => 'required|email|unique:kontaks,email,' . $id,
+            'alamat' => 'required|string',
+            'npwp' => 'nullable|string',
         ]);
 
-        $kontak->update([
-            'nama' => $request->nama,
+        Kontak::whereId($id)->update([
             'organisasi_id' => $request->organisasi_id,
+            'nama_lengkap' => $request->nama_lengkap,
+            'nama_panggilan' => $request->nama_panggilan,
+            'nomor_handphone' => $request->nomor_handphone,
+            'email' => $request->email,
+            'alamat' => $request->alamat,
+            'npwp' => $request->npwp,
         ]);
 
         return redirect()->route('pihak_ketiga.index')->with('success', ucwords(str_replace('_', ' ', 'pihak_ketiga')).' berhasil diperbarui');
@@ -95,10 +107,9 @@ class PihakKetigaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kontak $kontak)
+    public function destroy($id)
     {
-        $kontak->delete();
-
+        Kontak::whereId($id)->delete();
         return redirect()->route('pihak_ketiga.index')->with('success', ucwords(str_replace('_', ' ', 'pihak_ketiga')).' berhasil dihapus');
     }
 }

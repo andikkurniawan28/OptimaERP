@@ -119,6 +119,11 @@
                                     <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'keahlian')) }}</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('karyawan.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'karyawan')) }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

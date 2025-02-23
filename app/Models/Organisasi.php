@@ -11,6 +11,10 @@ class Organisasi extends Model
 
     protected $guarded = [];
 
+    public function jenis_pihak_ketiga(){
+        return $this->belongsTo(JenisPihakKetiga::class);
+    }
+
     public function jenis_organisasi(){
         return $this->belongsTo(JenisOrganisasi::class);
     }

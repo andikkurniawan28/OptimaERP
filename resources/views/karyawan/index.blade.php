@@ -1,11 +1,11 @@
 @extends('template.master')
 
-@section('kontak-aktif')
+@section('karyawanktif')
     {{ 'active' }}
 @endsection
 
 @section('title')
-    {{ ucwords(str_replace('_', ' ', 'pihak_ketiga')) }}
+    {{ ucwords(str_replace('_', ' ', 'karyawan')) }}
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
                         <h5 class="text-white op-7 mb-2">Manajemen @yield('title')</h5>
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
-                        <a href="{{ route('pihak_ketiga.create') }}" class="btn btn-secondary btn-round">Tambah @yield('title')</a>
+                        <a href="{{ route('karyawan.create') }}" class="btn btn-secondary btn-round">Tambah @yield('title')</a>
                     </div>
                 </div>
             </div>
@@ -38,22 +38,22 @@
                                         <tr>
                                             <th>{{ strtoupper(str_replace('_', ' ', 'id')) }}</th>
                                             <th>{{ ucwords(str_replace('_', ' ', 'nama_panggilan')) }}</th>
-                                            <th>{{ ucwords(str_replace('_', ' ', 'organisasi')) }}</th>
+                                            <th>{{ ucwords(str_replace('_', ' ', 'jabatan')) }}</th>
                                             <th>{{ ucwords(str_replace('_', ' ', 'nomor_handphone')) }}</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($pihak_ketigas as $pihak_ketiga)
+                                        @forelse ($karyawans as $karyawan)
                                             <tr>
-                                                <td>{{ $pihak_ketiga->id }}</td>
-                                                <td>{{ $pihak_ketiga->nama_panggilan }}</td>
-                                                <td>{{ $pihak_ketiga->organisasi->nama }}</td>
-                                                <td>{{ $pihak_ketiga->nomor_handphone }}</td>
+                                                <td>{{ $karyawan->id }}</td>
+                                                <td>{{ $karyawan->nama_panggilan }}</td>
+                                                <td>{{ $karyawan->jabatan->nama }}</td>
+                                                <td>{{ $karyawan->nomor_handphone }}</td>
                                                 <td>
-                                                    <a href="{{ route('pihak_ketiga.show', $pihak_ketiga->id) }}" class="btn btn-info btn-sm">Detail</a>
-                                                    <a href="{{ route('pihak_ketiga.edit', $pihak_ketiga->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                    <form action="{{ route('pihak_ketiga.destroy', $pihak_ketiga->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                                    <a href="{{ route('karyawan.show', $karyawan->id) }}" class="btn btn-info btn-sm">Detail</a>
+                                                    <a href="{{ route('karyawan.edit', $karyawan->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                    <form action="{{ route('karyawan.destroy', $karyawan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

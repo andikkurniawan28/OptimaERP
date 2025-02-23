@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    {{ ucwords(str_replace('_', ' ', 'organisasi')) }}
+    {{ ucwords(str_replace('_', ' ', 'pihak_ketiga')) }}
 @endsection
 
 @section('content')
@@ -15,10 +15,10 @@
                 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                     <div>
                         <h2 class="text-white pb-2 fw-bold">Detail @yield('title')</h2>
-                        <h5 class="text-white op-7 mb-2">Informasi lengkap tentang <strong>{{ $organisasi->nama }}</strong></h5>
+                        <h5 class="text-white op-7 mb-2">Informasi lengkap tentang <strong>{{ $kontak->nama_lengkap }}</strong></h5>
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
-                        <a href="{{ route('organisasi.index') }}" class="btn btn-secondary btn-round">Kembali</a>
+                        <a href="{{ route('pihak_ketiga.index') }}" class="btn btn-secondary btn-round">Kembali</a>
                     </div>
                 </div>
             </div>
@@ -34,57 +34,49 @@
                         <div class="card-body">
                             <table class="table table-striped">
                                 <tr>
+                                    <th>{{ ucwords(str_replace('_', ' ', 'organisasi')) }}</th>
+                                    <td>{{ $kontak->organisasi->nama ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ ucwords(str_replace('_', ' ', 'nama_lengkap')) }}</th>
+                                    <td>{{ $kontak->nama_lengkap }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ ucwords(str_replace('_', ' ', 'nama_panggilan')) }}</th>
+                                    <td>{{ $kontak->nama_panggilan }}</td>
+                                </tr>
+                                <tr>
                                     <th>{{ ucwords(str_replace('_', ' ', 'kode')) }}</th>
-                                    <td>{{ $organisasi->kode }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ ucwords(str_replace('_', ' ', 'nama')) }}</th>
-                                    <td>{{ $organisasi->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ ucwords(str_replace('_', ' ', 'jenis_pihak_ketiga')) }}</th>
-                                    <td>{{ $organisasi->jenis_pihak_ketiga->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ ucwords(str_replace('_', ' ', 'jenis_organisasi')) }}</th>
-                                    <td>{{ $organisasi->jenis_organisasi->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ ucwords(str_replace('_', ' ', 'bidang_usaha')) }}</th>
-                                    <td>{{ $organisasi->bidang_usaha->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ ucwords(str_replace('_', ' ', 'wilayah')) }}</th>
-                                    <td>{{ $organisasi->wilayah->nama }}</td>
+                                    <td>{{ $kontak->kode }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ ucwords(str_replace('_', ' ', 'nomor_handphone')) }}</th>
-                                    <td>{{ $organisasi->nomor_handphone }}</td>
+                                    <td>{{ $kontak->nomor_handphone }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ ucwords(str_replace('_', ' ', 'email')) }}</th>
-                                    <td>{{ $organisasi->email }}</td>
+                                    <td>{{ $kontak->email }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ ucwords(str_replace('_', ' ', 'alamat')) }}</th>
-                                    <td>{{ $organisasi->alamat }}</td>
+                                    <td>{{ $kontak->alamat }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ strtoupper(str_replace('_', ' ', 'npwp')) }}</th>
-                                    <td>{{ $organisasi->npwp ?? '-' }}</td>
+                                    <td>{{ $kontak->npwp ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ ucwords(str_replace('_', ' ', 'dibuat_pada')) }}</th>
-                                    <td>{{ $organisasi->created_at->format('d-m-Y H:i') }}</td>
+                                    <td>{{ $kontak->created_at->format('d-m-Y H:i') }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ ucwords(str_replace('_', ' ', 'terakhir_diperbarui')) }}</th>
-                                    <td>{{ $organisasi->updated_at->format('d-m-Y H:i') }}</td>
+                                    <td>{{ $kontak->updated_at->format('d-m-Y H:i') }}</td>
                                 </tr>
                             </table>
                         </div>
                         <div class="card-footer text-right">
-                            <a href="{{ route('organisasi.edit', $organisasi->id) }}" class="btn btn-warning">
+                            <a href="{{ route('pihak_ketiga.edit', $kontak->id) }}" class="btn btn-warning">
                                 Edit
                             </a>
                         </div>

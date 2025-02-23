@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('organisasis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('jenis_pihak_ketiga_id')->constrained();
             $table->foreignId('jenis_organisasi_id')->constrained();
             $table->foreignId('bidang_usaha_id')->constrained();
             $table->foreignId('wilayah_id')->constrained();

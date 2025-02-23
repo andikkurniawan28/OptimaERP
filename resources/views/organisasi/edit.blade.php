@@ -37,6 +37,21 @@
                                 @method('PUT')
 
                                 <div class="form-group">
+                                    <label for="jenis_pihak_ketiga">{{ ucwords(str_replace('_', ' ', 'jenis_pihak_ketiga')) }}</label>
+                                    <select name="jenis_pihak_ketiga_id" id="jenis_pihak_ketiga" class="form-control @error('jenis_pihak_ketiga_id') is-invalid @enderror">
+                                        <option value="">Pilih {{ ucwords(str_replace('_', ' ', 'jenis_pihak_ketiga')) }}</option>
+                                        @foreach($jenis_pihak_ketigas as $jenis_pihak_ketiga)
+                                            <option value="{{ $jenis_pihak_ketiga->id }}" {{ old('jenis_pihak_ketiga_id', $organisasi->jenis_pihak_ketiga_id) == $jenis_pihak_ketiga->id ? 'selected' : '' }}>
+                                                {{ $jenis_pihak_ketiga->nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('jenis_pihak_ketiga_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
                                     <label for="jenis_organisasi">{{ ucwords(str_replace('_', ' ', 'jenis_organisasi')) }}</label>
                                     <select name="jenis_organisasi_id" id="jenis_organisasi" class="form-control @error('jenis_organisasi_id') is-invalid @enderror">
                                         <option value="">Pilih {{ ucwords(str_replace('_', ' ', 'jenis_organisasi')) }}</option>
@@ -144,6 +159,11 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#jenis_pihak_ketiga').select2({
+            theme: 'bootstrap',
+            placeholder: "Pilih {{ ucwords(str_replace('_', ' ', 'jenis_pihak_ketiga')) }}",
+            allowClear: true
+        });
         $('#jenis_organisasi').select2({
             theme: 'bootstrap',
             placeholder: "Pilih {{ ucwords(str_replace('_', ' ', 'jenis_organisasi')) }}",

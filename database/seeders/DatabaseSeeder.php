@@ -42,6 +42,8 @@ class DatabaseSeeder extends Seeder
             ['nama' => 'Pemerintah', 'master' => 1],
             ['nama' => 'Professional', 'master' => 1],
             ['nama' => 'Peserta Rekrutmen', 'master' => 1],
+            ['nama' => 'Kreditur', 'master' => 1],
+            ['nama' => 'Debitur', 'master' => 1],
         ]);
 
         Departemen::insert([
@@ -326,6 +328,7 @@ class DatabaseSeeder extends Seeder
             ['nama' => 'Persekutuan Perdata', 'master' => 1],
             ['nama' => 'Perusahaan Dagang (PD)', 'master' => 1],
             ['nama' => 'Usaha Dagang (UD)', 'master' => 1],
+            ['nama' => 'Perorangan', 'master' => 1],
         ]);
 
         BidangUsaha::insert([
@@ -406,9 +409,10 @@ class DatabaseSeeder extends Seeder
 
         Organisasi::insert([
             [
-                'jenis_organisasi_id' => 1, // Sesuaikan dengan ID dari tabel jenis_organisasis
-                'bidang_usaha_id' => 1, // Sesuaikan dengan ID dari tabel bidang_usahas
-                'wilayah_id' => 1, // Sesuaikan dengan ID dari tabel wilayahs
+                'jenis_pihak_ketiga_id' => 1,
+                'jenis_organisasi_id' => 1,
+                'bidang_usaha_id' => 1,
+                'wilayah_id' => 1,
                 'kode' => 'ORG001',
                 'nama' => 'PT Maju Sejahtera',
                 'nomor_handphone' => '081234567890',
@@ -417,7 +421,8 @@ class DatabaseSeeder extends Seeder
                 'npwp' => '12.345.678.9-012.345'
             ],
             [
-                'jenis_organisasi_id' => 2,
+                'jenis_pihak_ketiga_id' => 1,
+                'jenis_organisasi_id' => 3,
                 'bidang_usaha_id' => 5,
                 'wilayah_id' => 2,
                 'kode' => 'ORG002',
@@ -428,7 +433,8 @@ class DatabaseSeeder extends Seeder
                 'npwp' => '98.765.432.1-098.765'
             ],
             [
-                'jenis_organisasi_id' => 3,
+                'jenis_pihak_ketiga_id' => 10,
+                'jenis_organisasi_id' => 5,
                 'bidang_usaha_id' => 10,
                 'wilayah_id' => 3,
                 'kode' => 'ORG003',
@@ -436,7 +442,7 @@ class DatabaseSeeder extends Seeder
                 'nomor_handphone' => '083198765432',
                 'email' => 'makmur_jaya@example.com',
                 'alamat' => 'Jl. Pahlawan No. 15, Surabaya',
-                'npwp' => null // Tidak semua organisasi memiliki NPWP
+                'npwp' => null,
             ],
         ]);
 
