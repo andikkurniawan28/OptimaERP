@@ -392,6 +392,27 @@
     </script>
     @endif
 
+    @if (session('errors'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let errorMessages = {!! json_encode(session('errors')->all()) !!};
+                let errorText = "<ul style='text-align: left;'>";
+                errorMessages.forEach(function(error) {
+                    errorText += "<li>" + error + "</li>";
+                });
+                errorText += "</ul>";
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    html: errorText,
+                    showConfirmButton: true
+                });
+            });
+        </script>
+    @endif
+
+
     @yield('script')
 </body>
 </html>

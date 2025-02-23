@@ -21,8 +21,7 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-        $karyawans = Kontak::with(['organisasi', 'jabatan', 'statusKaryawan', 'agama', 'statusPerkawinan', 'pendidikanTerakhir', 'sekolah', 'jurusan'])
-            ->where('jenis_kontak_id', 1) // Jenis kontak untuk karyawan
+        $karyawans = Kontak::where('jenis_kontak_id', 1) // Jenis kontak untuk karyawan
             ->get();
         return view('karyawan.index', compact('karyawans'));
     }
@@ -60,7 +59,6 @@ class KaryawanController extends Controller
     {
         $request->validate([
             'kode' => 'required|string|unique:kontaks,kode',
-            'organisasi_id' => 'required|exists:organisasis,id',
             'nama_lengkap' => 'required|string|unique:kontaks,nama_lengkap',
             'nama_panggilan' => 'required|string|unique:kontaks,nama_panggilan',
             'nomor_handphone' => 'required|string|unique:kontaks,nomor_handphone',
@@ -85,7 +83,6 @@ class KaryawanController extends Controller
         Kontak::create([
             'kode' => $request->kode,
             'jenis_kontak_id' => 1, // Jenis kontak untuk karyawan
-            'organisasi_id' => $request->organisasi_id,
             'nama_lengkap' => $request->nama_lengkap,
             'nama_panggilan' => $request->nama_panggilan,
             'nomor_handphone' => $request->nomor_handphone,
@@ -115,8 +112,7 @@ class KaryawanController extends Controller
      */
     public function show($id)
     {
-        $karyawan = Kontak::with(['organisasi', 'jabatan', 'statusKaryawan', 'agama', 'statusPerkawinan', 'pendidikanTerakhir', 'sekolah', 'jurusan'])
-            ->whereId($id)
+        $karyawan = Kontak::whereId($id)
             ->firstOrFail();
         return view('karyawan.show', compact('karyawan'));
     }
@@ -126,10 +122,8 @@ class KaryawanController extends Controller
      */
     public function edit($id)
     {
-        $karyawan = Kontak::with(['organisasi', 'jabatan', 'statusKaryawan', 'agama', 'statusPerkawinan', 'pendidikanTerakhir', 'sekolah', 'jurusan'])
-            ->whereId($id)
+        $karyawan = Kontak::whereId($id)
             ->firstOrFail();
-        $organisasis = Organisasi::all();
         $jabatans = Jabatan::all();
         $status_karyawans = StatusKaryawan::all();
         $agamas = Agama::all();
@@ -140,7 +134,6 @@ class KaryawanController extends Controller
 
         return view('karyawan.edit', compact(
             'karyawan',
-            'organisasis',
             'jabatans',
             'status_karyawans',
             'agamas',
@@ -157,7 +150,6 @@ class KaryawanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'organisasi_id' => 'required|exists:organisasis,id',
             'nama_lengkap' => 'required|string|unique:kontaks,nama_lengkap,' . $id,
             'nama_panggilan' => 'required|string|unique:kontaks,nama_panggilan,' . $id,
             'nomor_handphone' => 'required|string|unique:kontaks,nomor_handphone,' . $id,

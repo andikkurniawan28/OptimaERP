@@ -17,6 +17,7 @@ use App\Models\StatusKaryawan;
 use App\Models\JenisOrganisasi;
 use Illuminate\Database\Seeder;
 use App\Models\JenisPihakKetiga;
+use App\Models\Sekolah;
 use App\Models\StatusPerkawinan;
 use App\Models\PendidikanTerakhir;
 use App\Models\Organisasi;
@@ -227,6 +228,32 @@ class DatabaseSeeder extends Seeder
             ['kode' => 'PAUD', 'nama' => 'Pendidikan Anak Usia Dini'],
             ['kode' => 'SAS', 'nama' => 'Sastra Indonesia'],
             ['kode' => 'ING', 'nama' => 'Sastra Inggris'],
+        ]);
+
+        Sekolah::insert([
+            // Universitas besar di Indonesia
+            ['kode' => 'UNIV001', 'nama' => 'Universitas Indonesia'],
+            ['kode' => 'UNIV002', 'nama' => 'Institut Teknologi Bandung'],
+            ['kode' => 'UNIV003', 'nama' => 'Universitas Gadjah Mada'],
+            ['kode' => 'UNIV004', 'nama' => 'Universitas Airlangga'],
+            ['kode' => 'UNIV005', 'nama' => 'Universitas Padjadjaran'],
+            ['kode' => 'UNIV006', 'nama' => 'Institut Pertanian Bogor'],
+            ['kode' => 'UNIV007', 'nama' => 'Universitas Diponegoro'],
+            ['kode' => 'UNIV008', 'nama' => 'Universitas Sebelas Maret'],
+            ['kode' => 'UNIV009', 'nama' => 'Universitas Hasanuddin'],
+            ['kode' => 'UNIV010', 'nama' => 'Universitas Brawijaya'],
+            ['kode' => 'UNIV011', 'nama' => 'Universitas Sumatera Utara'],
+            ['kode' => 'UNIV012', 'nama' => 'Universitas Andalas'],
+            ['kode' => 'UNIV013', 'nama' => 'Universitas Negeri Yogyakarta'],
+            ['kode' => 'UNIV014', 'nama' => 'Universitas Pendidikan Indonesia'],
+            ['kode' => 'UNIV015', 'nama' => 'Universitas Negeri Malang'],
+
+            // Politeknik besar di Indonesia
+            ['kode' => 'POLI001', 'nama' => 'Politeknik Elektronika Negeri Surabaya'],
+            ['kode' => 'POLI002', 'nama' => 'Politeknik Negeri Bandung'],
+            ['kode' => 'POLI003', 'nama' => 'Politeknik Negeri Jakarta'],
+            ['kode' => 'POLI004', 'nama' => 'Politeknik Negeri Semarang'],
+            ['kode' => 'POLI005', 'nama' => 'Politeknik Negeri Malang'],
         ]);
 
         Bank::insert([

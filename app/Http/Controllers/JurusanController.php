@@ -37,7 +37,6 @@ class JurusanController extends Controller
         Jurusan::create([
             'kode' => $request->kode,
             'nama' => $request->nama,
-            'master' => $request->master,
         ]);
 
         return redirect()->route('jurusan.index')->with('success', ucwords(str_replace('_', ' ', 'jurusan')).' berhasil ditambahkan');

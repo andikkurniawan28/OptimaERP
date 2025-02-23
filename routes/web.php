@@ -16,6 +16,7 @@ use App\Http\Controllers\KeahlianController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PendidikanTerakhirController;
 use App\Http\Controllers\PihakKetigaController;
+use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\SeksiController;
 use App\Http\Controllers\StatusKaryawanController;
 use App\Http\Controllers\StatusPerkawinanController;
@@ -50,5 +51,6 @@ Route::resource('/personalia/status_perkawinan', StatusPerkawinanController::cla
 Route::resource('/personalia/agama', AgamaController::class);
 Route::resource('/personalia/pendidikan_terakhir', PendidikanTerakhirController::class);
 Route::resource('/personalia/jurusan', JurusanController::class);
+Route::resource('/personalia/sekolah', SekolahController::class);
 Route::resource('/personalia/keahlian', KeahlianController::class);
 Route::resource('/personalia/karyawan', KaryawanController::class);

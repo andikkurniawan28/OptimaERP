@@ -12,7 +12,8 @@ class SekolahController extends Controller
      */
     public function index()
     {
-        //
+        $sekolahs = Sekolah::all();
+        return view('sekolah.index', compact('sekolahs'));
     }
 
     /**
@@ -20,7 +21,7 @@ class SekolahController extends Controller
      */
     public function create()
     {
-        //
+        return view('sekolah.create');
     }
 
     /**
@@ -28,7 +29,17 @@ class SekolahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        Sekolah::create([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->route('sekolah.index')->with('success', ucwords(str_replace('_', ' ', 'sekolah')).' berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +47,7 @@ class SekolahController extends Controller
      */
     public function show(Sekolah $sekolah)
     {
-        //
+        return view('sekolah.show', compact('sekolah'));
     }
 
     /**
@@ -44,7 +55,7 @@ class SekolahController extends Controller
      */
     public function edit(Sekolah $sekolah)
     {
-        //
+        return view('sekolah.edit', compact('sekolah'));
     }
 
     /**
@@ -52,7 +63,17 @@ class SekolahController extends Controller
      */
     public function update(Request $request, Sekolah $sekolah)
     {
-        //
+        $request->validate([
+            'kode' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        $sekolah->update([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->route('sekolah.index')->with('success', ucwords(str_replace('_', ' ', 'sekolah')).' berhasil diperbarui');
     }
 
     /**
@@ -60,6 +81,8 @@ class SekolahController extends Controller
      */
     public function destroy(Sekolah $sekolah)
     {
-        //
+        $sekolah->delete();
+
+        return redirect()->route('sekolah.index')->with('success', ucwords(str_replace('_', ' ', 'sekolah')).' berhasil dihapus');
     }
 }

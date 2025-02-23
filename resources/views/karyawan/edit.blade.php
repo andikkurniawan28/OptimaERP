@@ -30,79 +30,48 @@
                         <h4 class="card-title">Edit @yield('title')</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('karyawan.update', $kontak->id) }}" method="POST">
+                        <form action="{{ route('karyawan.update', $karyawan->id) }}" method="POST">
                             @csrf
                             @method('PUT')
 
-                            <!-- Organisasi -->
-                            <div class="form-group">
-                                <label for="organisasi">{{ ucwords(str_replace('_', ' ', 'organisasi')) }}</label>
-                                <select name="organisasi_id" id="organisasi" class="form-control @error('organisasi_id') is-invalid @enderror">
-                                    <option value="">Pilih {{ ucwords(str_replace('_', ' ', 'organisasi')) }}</option>
-                                    @foreach($organisasis as $organisasi)
-                                        <option value="{{ $organisasi->id }}" {{ $kontak->organisasi_id == $organisasi->id ? 'selected' : '' }}>
-                                            {{ $organisasi->nama }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('organisasi_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            @php
+                                $fields = [
+                                    'kode', 'nama_lengkap', 'nama_panggilan',
+                                    'jabatan_id', 'nomor_handphone', 'email', 'alamat',
+                                    'npwp', 'status_karyawan_id', 'agama_id',
+                                    'status_perkawinan_id', 'pendidikan_terakhir_id',
+                                    'sekolah_id', 'jurusan_id', 'nik', 'nkk',
+                                    'bpjs_ketenagakerjaan', 'bpjs_kesehatan', 'tempat_lahir', 'tanggal_lahir'
+                                ];
+                                $dropdowns = ['jabatan', 'status_karyawan', 'agama',
+                                              'status_perkawinan', 'pendidikan_terakhir', 'sekolah', 'jurusan'];
+                            @endphp
 
-                            <!-- Nama Lengkap -->
-                            <div class="form-group">
-                                <label for="nama_lengkap">{{ ucwords(str_replace('_', ' ', 'nama_lengkap')) }}</label>
-                                <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" value="{{ old('nama_lengkap', $kontak->nama_lengkap) }}" required>
-                                @error('nama_lengkap')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            @foreach ($fields as $field)
+                                @php
+                                    $field_name = str_replace('_id', '', $field);
+                                @endphp
+                                <div class="form-group">
+                                    <label for="{{ $field }}">{{ ucwords(str_replace('_', ' ', $field_name)) }}</label>
 
-                            <!-- Nama Panggilan -->
-                            <div class="form-group">
-                                <label for="nama_panggilan">{{ ucwords(str_replace('_', ' ', 'nama_panggilan')) }}</label>
-                                <input type="text" name="nama_panggilan" id="nama_panggilan" class="form-control @error('nama_panggilan') is-invalid @enderror" value="{{ old('nama_panggilan', $kontak->nama_panggilan) }}" required>
-                                @error('nama_panggilan')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                                    @if(in_array($field_name, $dropdowns))
+                                        <select name="{{ $field }}" id="{{ $field }}" class="form-control select2 @error($field) is-invalid @enderror">
+                                            <option value="">Pilih {{ ucwords(str_replace('_', ' ', $field_name)) }}</option>
+                                            @foreach(${$field_name . 's'} as $item)
+                                                <option value="{{ $item->id }}" {{ $karyawan->$field == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->nama }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    @elseif($field == 'tanggal_lahir')
+                                        <input type="date" name="{{ $field }}" id="{{ $field }}" class="form-control @error($field) is-invalid @enderror" value="{{ $karyawan->$field }}">
+                                    @else
+                                        <input type="text" name="{{ $field }}" id="{{ $field }}" class="form-control @error($field) is-invalid @enderror" value="{{ $karyawan->$field }}">
+                                    @endif
 
-                            <!-- Nomor Handphone -->
-                            <div class="form-group">
-                                <label for="nomor_handphone">{{ ucwords(str_replace('_', ' ', 'nomor_handphone')) }}</label>
-                                <input type="text" name="nomor_handphone" id="nomor_handphone" class="form-control @error('nomor_handphone') is-invalid @enderror" value="{{ old('nomor_handphone', $kontak->nomor_handphone) }}" required>
-                                @error('nomor_handphone')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Email -->
-                            <div class="form-group">
-                                <label for="email">{{ ucwords(str_replace('_', ' ', 'email')) }}</label>
-                                <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $kontak->email) }}" required>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Alamat -->
-                            <div class="form-group">
-                                <label for="alamat">{{ ucwords(str_replace('_', ' ', 'alamat')) }}</label>
-                                <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat', $kontak->alamat) }}</textarea>
-                                @error('alamat')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- NPWP -->
-                            <div class="form-group">
-                                <label for="npwp">{{ strtoupper(str_replace('_', ' ', 'npwp')) }}</label>
-                                <input type="text" name="npwp" id="npwp" class="form-control @error('npwp') is-invalid @enderror" value="{{ old('npwp', $kontak->npwp) }}">
-                                @error('npwp')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                                    @error($field) <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+                            @endforeach
 
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>
@@ -117,9 +86,9 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#organisasi').select2({
+        $('.select2').select2({
             theme: 'bootstrap',
-            placeholder: "Pilih organisasi",
+            placeholder: "Pilih opsi",
             allowClear: true
         });
     });

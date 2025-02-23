@@ -42,18 +42,21 @@
                                     'sekolah_id', 'jurusan_id', 'nik', 'nkk',
                                     'bpjs_ketenagakerjaan', 'bpjs_kesehatan', 'tempat_lahir', 'tanggal_lahir'
                                 ];
-                                $dropdowns = ['jabatan_id', 'status_karyawan_id', 'agama_id',
-                                              'status_perkawinan_id', 'pendidikan_terakhir_id', 'sekolah_id', 'jurusan_id'];
+                                $dropdowns = ['jabatan', 'status_karyawan', 'agama',
+                                              'status_perkawinan', 'pendidikan_terakhir', 'sekolah', 'jurusan'];
                             @endphp
 
                             @foreach ($fields as $field)
+                                @php
+                                    $field_name = str_replace('_id', '', $field);
+                                @endphp
                                 <div class="form-group">
-                                    <label for="{{ $field }}">{{ ucwords(str_replace('_', ' ', $field)) }}</label>
+                                    <label for="{{ $field }}">{{ ucwords(str_replace('_', ' ', $field_name)) }}</label>
 
-                                    @if(in_array($field, $dropdowns))
+                                    @if(in_array($field_name, $dropdowns))
                                         <select name="{{ $field }}" id="{{ $field }}" class="form-control select2 @error($field) is-invalid @enderror">
-                                            <option value="">Pilih {{ ucwords(str_replace('_', ' ', $field)) }}</option>
-                                            @foreach(${$field.'s'} as $item)
+                                            <option value="">Pilih {{ ucwords(str_replace('_', ' ', $field_name)) }}</option>
+                                            @foreach(${$field_name . 's'} as $item)
                                                 <option value="{{ $item->id }}" {{ old($field) == $item->id ? 'selected' : '' }}>
                                                     {{ $item->nama }}
                                                 </option>

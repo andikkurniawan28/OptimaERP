@@ -115,6 +115,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ route('sekolah.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'sekolah')) }}</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('keahlian.index') }}">
                                     <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'keahlian')) }}</span>
                                 </a>
