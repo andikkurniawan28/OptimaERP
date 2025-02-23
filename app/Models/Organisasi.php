@@ -10,4 +10,16 @@ class Organisasi extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function jenis_organisasi(){
+        return $this->belongsTo(JenisOrganisasi::class);
+    }
+
+    public function bidang_usaha(){
+        return $this->belongsTo(BidangUsaha::class);
+    }
+
+    public function wilayah(){
+        return $this->belongsTo(Wilayah::class);
+    }
 }

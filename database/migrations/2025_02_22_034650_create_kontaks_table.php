@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('kontaks', function (Blueprint $table) {
             $table->id();
+            $table->string('kode')->unique();
             $table->foreignId('jenis_kontak_id')->constrained();
             $table->foreignId('organisasi_id')->constrained();
-            $table->string('nama')->unique();
+            $table->string('nama_lengkap')->unique();
+            $table->string('nama_panggilan')->unique();
             $table->string('nomor_handphone')->unique();
             $table->string('email')->unique();
             $table->text('alamat');
-            $table->foreignId('jenis_pihak_ketiga_id')->nullable()->constrained();
+            $table->string('npwp')->nullable();
+            // $table->foreignId('jenis_pihak_ketiga_id')->nullable()->constrained();
             $table->foreignId('jabatan_id')->nullable()->constrained();
             $table->foreignId('status_karyawan_id')->nullable()->constrained();
             $table->foreignId('agama_id')->nullable()->constrained();
@@ -27,7 +30,6 @@ return new class extends Migration
             $table->foreignId('pendidikan_terakhir_id')->nullable()->constrained();
             $table->foreignId('sekolah_id')->nullable()->constrained();
             $table->foreignId('jurusan_id')->nullable()->constrained();
-            $table->string('npwp')->nullable();
             $table->string('nik')->nullable();
             $table->string('nkk')->nullable();
             $table->string('bpjs_ketenagakerjaan')->nullable();

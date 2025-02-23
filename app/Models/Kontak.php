@@ -10,4 +10,8 @@ class Kontak extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function organisasi(){
+        return $this->belongsTo(Organisasi::class);
+    }
 }

@@ -53,6 +53,16 @@
                                     <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'wilayah')) }}</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('organisasi.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'organisasi')) }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('pihak_ketiga.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'pihak_ketiga')) }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

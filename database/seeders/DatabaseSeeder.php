@@ -19,6 +19,7 @@ use Illuminate\Database\Seeder;
 use App\Models\JenisPihakKetiga;
 use App\Models\StatusPerkawinan;
 use App\Models\PendidikanTerakhir;
+use App\Models\Organisasi;
 
 class DatabaseSeeder extends Seeder
 {
@@ -226,20 +227,6 @@ class DatabaseSeeder extends Seeder
             ['kode' => 'ING', 'nama' => 'Sastra Inggris'],
         ]);
 
-        JenisOrganisasi::insert([
-            ['nama' => 'PT', 'master' => 1],
-            ['nama' => 'PT Perorangan', 'master' => 1],
-            ['nama' => 'CV', 'master' => 1],
-            ['nama' => 'Firma', 'master' => 1],
-            ['nama' => 'Koperasi', 'master' => 1],
-            ['nama' => 'Yayasan', 'master' => 1],
-            ['nama' => 'Badan Usaha Milik Negara (BUMN)', 'master' => 1],
-            ['nama' => 'Badan Usaha Milik Daerah (BUMD)', 'master' => 1],
-            ['nama' => 'Persekutuan Perdata', 'master' => 1],
-            ['nama' => 'Perusahaan Dagang (PD)', 'master' => 1],
-            ['nama' => 'Usaha Dagang (UD)', 'master' => 1],
-        ]);
-
         Bank::insert([
             ['kode' => 'BRI', 'nama' => 'Bank Rakyat Indonesia (BRI)'],
             ['kode' => 'MANDIRI', 'nama' => 'Bank Mandiri'],
@@ -327,6 +314,20 @@ class DatabaseSeeder extends Seeder
             ['kode' => 'IOT', 'nama' => 'Internet of Things (IoT)'],
         ]);
 
+        JenisOrganisasi::insert([
+            ['nama' => 'PT', 'master' => 1],
+            ['nama' => 'PT Perorangan', 'master' => 1],
+            ['nama' => 'CV', 'master' => 1],
+            ['nama' => 'Firma', 'master' => 1],
+            ['nama' => 'Koperasi', 'master' => 1],
+            ['nama' => 'Yayasan', 'master' => 1],
+            ['nama' => 'Badan Usaha Milik Negara (BUMN)', 'master' => 1],
+            ['nama' => 'Badan Usaha Milik Daerah (BUMD)', 'master' => 1],
+            ['nama' => 'Persekutuan Perdata', 'master' => 1],
+            ['nama' => 'Perusahaan Dagang (PD)', 'master' => 1],
+            ['nama' => 'Usaha Dagang (UD)', 'master' => 1],
+        ]);
+
         BidangUsaha::insert([
             // BIDANG INDUSTRI & MANUFAKTUR
             ['kode' => 'MNF', 'nama' => 'Manufaktur', 'master' => 1],
@@ -401,6 +402,42 @@ class DatabaseSeeder extends Seeder
             ['kode' => 'AMB', 'nama' => 'Ambon', 'master' => 1],
             ['kode' => 'TTE', 'nama' => 'Ternate', 'master' => 1],
             ['kode' => 'JYP', 'nama' => 'Jayapura', 'master' => 1],
+        ]);
+
+        Organisasi::insert([
+            [
+                'jenis_organisasi_id' => 1, // Sesuaikan dengan ID dari tabel jenis_organisasis
+                'bidang_usaha_id' => 1, // Sesuaikan dengan ID dari tabel bidang_usahas
+                'wilayah_id' => 1, // Sesuaikan dengan ID dari tabel wilayahs
+                'kode' => 'ORG001',
+                'nama' => 'PT Maju Sejahtera',
+                'nomor_handphone' => '081234567890',
+                'email' => 'maju_sejahtera@example.com',
+                'alamat' => 'Jl. Sudirman No. 1, Jakarta',
+                'npwp' => '12.345.678.9-012.345'
+            ],
+            [
+                'jenis_organisasi_id' => 2,
+                'bidang_usaha_id' => 5,
+                'wilayah_id' => 2,
+                'kode' => 'ORG002',
+                'nama' => 'CV Berkah Abadi',
+                'nomor_handphone' => '082112345678',
+                'email' => 'berkah_abadi@example.com',
+                'alamat' => 'Jl. Asia Afrika No. 10, Bandung',
+                'npwp' => '98.765.432.1-098.765'
+            ],
+            [
+                'jenis_organisasi_id' => 3,
+                'bidang_usaha_id' => 10,
+                'wilayah_id' => 3,
+                'kode' => 'ORG003',
+                'nama' => 'Koperasi Makmur Jaya',
+                'nomor_handphone' => '083198765432',
+                'email' => 'makmur_jaya@example.com',
+                'alamat' => 'Jl. Pahlawan No. 15, Surabaya',
+                'npwp' => null // Tidak semua organisasi memiliki NPWP
+            ],
         ]);
 
     }

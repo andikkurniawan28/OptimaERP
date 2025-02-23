@@ -12,7 +12,9 @@ use App\Http\Controllers\JenisOrganisasiController;
 use App\Http\Controllers\JenisPihakKetigaController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KeahlianController;
+use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PendidikanTerakhirController;
+use App\Http\Controllers\PihakKetigaController;
 use App\Http\Controllers\SeksiController;
 use App\Http\Controllers\StatusKaryawanController;
 use App\Http\Controllers\StatusPerkawinanController;
@@ -36,6 +38,8 @@ Route::resource('/kontak/jenis_organisasi', JenisOrganisasiController::class);
 Route::resource('/kontak/bidang_usaha', BidangUsahaController::class);
 Route::resource('/kontak/bank', BankController::class);
 Route::resource('/kontak/wilayah', WilayahController::class);
+Route::resource('/kontak/organisasi', OrganisasiController::class);
+Route::resource('/kontak/pihak_ketiga', PihakKetigaController::class);
 
 Route::resource('/personalia/departemen', DepartemenController::class);
 Route::resource('/personalia/seksi', SeksiController::class);
