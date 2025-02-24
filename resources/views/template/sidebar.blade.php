@@ -134,6 +134,21 @@
                                     <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'shift')) }}</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('hari_kerja.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'hari_kerja')) }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('hari_libur.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'hari_libur')) }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('cuti.index') }}">
+                                    <span class="sub-item">{{ ucwords(str_replace('_', ' ', 'cuti')) }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

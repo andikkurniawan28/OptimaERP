@@ -12,6 +12,7 @@ use App\Models\Wilayah;
 use App\Models\Keahlian;
 use App\Models\Departemen;
 use App\Models\BidangUsaha;
+use App\Models\HariKerja;
 use App\Models\JenisKontak;
 use App\Models\StatusKaryawan;
 use App\Models\JenisOrganisasi;
@@ -502,6 +503,44 @@ class DatabaseSeeder extends Seeder
                 'jam_masuk' => '22:00',
                 'jam_pulang' => '06:00',
                 'faktor_pengali_gaji' => 1.5,
+            ],
+        ]);
+
+        HariKerja::insert([
+            [
+                'kode' => 'Sunday',
+                'nama' => 'Minggu',
+                'faktor' => 2.0,
+            ],
+            [
+                'kode' => 'Monday',
+                'nama' => 'Senin',
+                'faktor' => 1.0,
+            ],
+            [
+                'kode' => 'Tuesday',
+                'nama' => 'Selasa',
+                'faktor' => 1.0,
+            ],
+            [
+                'kode' => 'Wednesday',
+                'nama' => 'Rabu',
+                'faktor' => 1.0,
+            ],
+            [
+                'kode' => 'Thursday',
+                'nama' => 'Kamis',
+                'faktor' => 1.0,
+            ],
+            [
+                'kode' => 'Friday',
+                'nama' => "Jum'at",
+                'faktor' => 1.0,
+            ],
+            [
+                'kode' => 'Saturday',
+                'nama' => "Sabtu",
+                'faktor' => 2.0,
             ],
         ]);
 
